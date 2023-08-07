@@ -21,9 +21,9 @@ const prepareAndStartServer= ()=>{
         const service = new UserService();
         const newToken= service.createToken({email:'rajan@admin.com',id:1});
         console.log("new token is ", newToken);
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhamFuQGFkbWluLmNvbSIsImlkIjoxLCJpYXQiOjE2OTE0MDYxOTcsImV4cCI6MTY5MTQwOTc5N30.I_Dz0BddYT3zeAucsqsFRW4XnrjtccvtxphIbg8QakE';
-        const response= service.verifyToken(token);
-        console.log(response);
+        //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhamFuQGFkbWluLmNvbSIsImlkIjoxLCJpYXQiOjE2OTE0MDYxOTcsImV4cCI6MTY5MTQwOTc5N30.I_Dz0BddYT3zeAucsqsFRW4XnrjtccvtxphIbg8QakE';
+        //const response= service.verifyToken(token);
+        //console.log(response);
         //const repo= new UserRepository();
         //const response = await repo.getById(1);
        // console.log(response);
