@@ -1,5 +1,6 @@
 const { user } = require('../models/index');
 
+
 class UserRepository {
 
     async createUser(userData) {
@@ -40,6 +41,21 @@ class UserRepository {
         }
     }
 
+
+    async getByEmail(userEmail) {
+        try {
+            const response = await user.findOne({
+                where: {
+                    email: userEmail
+                }
+            });
+
+            return response;
+        } catch (error) {
+            console.log('something Went wrong in respository layer');
+            throw(error);
+        }
+    }
 }
 
 module.exports = UserRepository;

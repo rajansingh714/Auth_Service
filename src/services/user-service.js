@@ -23,13 +23,14 @@ class UserSerive {
 
     createToken(user) {
         try {
-            const result = jwt.sign(user, JWT_KEY, {expiresIn: '2hr'} );
+            const result = jwt.sign(user, JWT_KEY, {expiresIn: '2days'} );
             return result;
         } catch (error) {
             console.log('something went wrong in service layer');
             throw(error);
         }
     }
+
 
     verfifyToke(token) {
         try {
@@ -41,12 +42,35 @@ class UserSerive {
         }
     }
 
+
     checkPassword(userInputPlainPassword, encryptedPassword) {
         try {
             return bcrypt.compare(userInputPlainPassword, encryptedPassword);
         } catch (error) {
             console.log('something went wrong in service layer');
             throw(error);
+        }
+    }
+
+    async signIn(email, plainPassword) {
+        try {
+             // step 1--> fetch the user using email
+            const user = await this.userRepository.getByEmail(email);
+            // step 2--> compare incoming plain password with stores encrypted password
+            const passwordMatch = await this.checkPassword(plainPassword, user.password);
+            
+            if(!passwordMatch) {
+                console.log('Password does not match');
+                throw {error: 'Incorrect password'}
+            }
+
+            // step 3--> if password match create token and send it to the user
+            const newJWt = this.createToken({email: user.email, id: user.id });
+            return newJWt;
+        } catch (error) {
+            console.log('something went wrong in service layer');
+            throw (error);
+            
         }
     }
 
