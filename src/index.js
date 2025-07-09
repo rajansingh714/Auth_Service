@@ -18,20 +18,15 @@ const SetupServer = async () => {
 
         app.use('/api', apiRoutes);
 
-        // const repo = new UserRepository();
-        // const result = await repo.getById(1);
-        // console.log(result)
+        // const user = new UserSerive();
+        
+        // const result = await user.createToken({email: "hp@gamil.com", id: 10 });
+        // console.log("new token is ", result);
+        
+        // const verify = await user.verifyToken(result);
 
-        const service  = new UserSerive();
-        // const newToken = service.createToken({ email: 'rajan@admin.com', id: 1 });
-        // console.log(newToken);
 
-        // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhamFuQGFkbWluLmNvbSIsImlkIjoxLCJpYXQiOjE3NTE5MTQ5NDcsImV4cCI6MTc1MTkyMjE0N30.Xhv4ZzMVz0qZ4QzBPzpTdV8OUGTMTd3SqdUrmQFqWf4"
-        // const user = service.verfifyToke(token);
-        // console.log(user)
-
-        // const verifyToken = 
-        app.listen(PORT, () => { 
+        app.listen(PORT, () => {    
             console.log(`server is Running on PORT n. ${PORT}`);
         });
 

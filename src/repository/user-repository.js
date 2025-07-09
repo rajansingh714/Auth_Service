@@ -29,18 +29,18 @@ class UserRepository {
         }
     }
 
+    
     async getById(userId) {
         try {
-            const response = await user.findByPk(userId, {
-                attributes: ['id', 'email']
+            const result = await user.findByPk(userId, {
+                attributes: ['email', 'id']
             });
-            return response;
+            return result;           
         } catch (error) {
-            console.log('something Went wrong in respository layer');
+            console.log('something went wrong in repository layer');
             throw(error);
         }
     }
-
 
     async getByEmail(userEmail) {
         try {
@@ -52,10 +52,11 @@ class UserRepository {
 
             return response;
         } catch (error) {
-            console.log('something Went wrong in respository layer');
+            console.log('somethign went wrong in repository layer');
             throw(error);
         }
     }
+
 }
 
 module.exports = UserRepository;

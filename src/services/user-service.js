@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const { JWT_KEY } = require('../config/serverConfig');
 const  UserRepository  = require('../repository/user-repository');
@@ -23,57 +23,79 @@ class UserSerive {
 
     createToken(user) {
         try {
-            const result = jwt.sign(user, JWT_KEY, {expiresIn: '2days'} );
+            const result = jwt.sign(user, JWT_KEY, { expiresIn: '5d'});
             return result;
         } catch (error) {
-            console.log('something went wrong in service layer');
-            throw(error);
+            console.log('somwthing went wrong in serice layer');
+            throw(error);  
         }
     }
-
-
-    verfifyToke(token) {
+  
+    verifyToken(token) {
         try {
+            console.log(token, ">>>>>>", JWT_KEY);
             const response = jwt.verify(token, JWT_KEY);
+            console.log(">>>>>>>>>>>>>>>>>>>", response);
             return response;
         } catch (error) {
-            console.log('something went wrong in service layer', error);
-            throw(error);
+            console.log('somwthing went wrong in serice layer');
+            throw(error); 
         }
     }
 
 
-    checkPassword(userInputPlainPassword, encryptedPassword) {
+    checkPassword(userPlainPassword, encryptedPassword) {
         try {
-            return bcrypt.compare(userInputPlainPassword, encryptedPassword);
+            return bcrypt.compareSync(userPlainPassword, encryptedPassword);
         } catch (error) {
             console.log('something went wrong in service layer');
             throw(error);
         }
     }
 
-    async signIn(email, plainPassword) {
+
+    async signIn(email, plainPassword)  {
         try {
-             // step 1--> fetch the user using email
+            // step --> 1 fetch the email id from user
             const user = await this.userRepository.getByEmail(email);
-            // step 2--> compare incoming plain password with stores encrypted password
+
+            // stemp --> 2 compare the encrypted password and plain password
             const passwordMatch = await this.checkPassword(plainPassword, user.password);
-            
             if(!passwordMatch) {
-                console.log('Password does not match');
-                throw {error: 'Incorrect password'}
+                console.log('password does not match');
+                throw{error: 'Incorrect Password'}
+            }
+            
+            // step 3 --> if password match them create a token and send to it user
+            const newJWT = this.createToken({ email: user.email, id: user.id});
+            return newJWT;
+
+        } catch (error) {
+            console.log('something went wrong in service layer');
+            throw(error);
+        }
+    }
+
+
+     isAuthenticate(token) {
+        try {
+            // console.log(token);
+            const response = this.verifyToken(token);
+            console.log(">>>>>>>>>>>>>>>")
+            if(!response) {
+                throw{error: 'Invalid token'}
             }
 
-            // step 3--> if password match create token and send it to the user
-            const newJWt = this.createToken({email: user.email, id: user.id });
-            return newJWt;
+            const user = this.userRepository.getById(response.id);
+            if(!user) {
+                throw{error: 'No user with corresponding token exists'}
+            }
+            return user.id;
         } catch (error) {
-            console.log('something went wrong in service layer');
-            throw (error);
-            
+            console.log('something went wrong in serviceee layer');
+            throw(error);
         }
     }
-
 }
 
 
