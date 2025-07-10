@@ -2,6 +2,7 @@ const  UserSerive  = require('../services/user-service');
 
 const userService = new UserSerive();
 
+
 const create = async (req, res) => {
     try {
         const result = await userService.create({
