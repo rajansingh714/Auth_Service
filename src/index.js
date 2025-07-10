@@ -4,8 +4,9 @@ const bodyparser = require('body-parser');
 const { PORT } = require('./config/serverConfig')
 const apiRoutes = require('./routes/index');
 
-// const UserRepository = require('./repository/user-repository');
 const UserSerive = require('./services/user-service');
+const db = require('./models/index');
+
 
 const SetupServer = async () => {
 
@@ -24,7 +25,10 @@ const SetupServer = async () => {
         // console.log("new token is ", result);
         
         // const verify = await user.verifyToken(result);
-
+        
+        if(process.env.DB_SYNC) {
+            db.sequelize.sync({alert: true});
+        }
 
         app.listen(PORT, () => {    
             console.log(`server is Running on PORT n. ${PORT}`);
