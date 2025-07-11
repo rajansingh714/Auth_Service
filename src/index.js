@@ -6,8 +6,6 @@ const apiRoutes = require('./routes/index');
 
 const UserSerive = require('./services/user-service');
 const db = require('./models/index');
-
-
 const SetupServer = async () => {
 
         // create a express object
@@ -26,9 +24,9 @@ const SetupServer = async () => {
         
         // const verify = await user.verifyToken(result);
         
-        if(process.env.DB_SYNC) {
-            db.sequelize.sync({alert: true});
-        }
+        // if(process.env.DB_SYNC) {
+        //     db.sequelize.sync({ alter: true });
+        // }
 
         app.listen(PORT, () => {    
             console.log(`server is Running on PORT n. ${PORT}`);

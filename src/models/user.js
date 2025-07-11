@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-        this.belongsToMany(models.Role, {
-          through: 'User_Roles'
-        });
+      this.belongsToMany(models.role, {
+        through: 'user_roles'
+      });
     }
   }
   user.init({
@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
+    freezeTableName: true,
     modelName: 'user',
   });
 
