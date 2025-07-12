@@ -9,7 +9,7 @@ const { SALT } = require('../config/serverConfig');
 
 
 module.exports = (sequelize, DataTypes) => {
-  class user extends Model {
+  class User extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -17,12 +17,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.role, {
-        through: 'user_roles'
+      this.belongsToMany(models.Role, {
+        through: 'User_roles'
       });
     }
   }
-  user.init({
+  User.init({
     email: {
       type:DataTypes.STRING,
       allowNull: false,
@@ -41,13 +41,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     freezeTableName: true,
-    modelName: 'user',
+    modelName: 'User',
   });
 
-    user.beforeCreate( (User) => {
-          const encryptedPassword = bcrypt.hashSync(User.password, SALT);
-          User.password = encryptedPassword;
+    User.beforeCreate( (user) => {
+          const encryptedPassword = bcrypt.hashSync(user.password, SALT);
+          user.password = encryptedPassword;
     });
-  return user;
+  return User;
 };
+
 

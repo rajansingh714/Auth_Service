@@ -4,7 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
  
-      await queryInterface.bulkInsert('role', [
+      await queryInterface.bulkInsert('Role', [
         {
             name: 'ADMIN',
             createdAt: new Date(),
@@ -23,6 +23,7 @@ module.exports = {
     ], {});
     
   },
+ 
 
   async down (queryInterface, Sequelize) {
     /**
@@ -33,3 +34,5 @@ module.exports = {
      */
   }
 };
+
+

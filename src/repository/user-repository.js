@@ -1,11 +1,11 @@
-const { user } = require('../models/index');
+const { User } = require('../models/index');
 
-
+    
 class UserRepository {
 
     async createUser(userData) {
         try {
-            const result = await user.create(userData);
+            const result = await User.create(userData);
             return result;
 
         } catch (error) {
@@ -16,7 +16,7 @@ class UserRepository {
 
     async deleteUser(userId) {
         try {
-            const response = await user.destroy({
+            const response = await User.destroy({
                 where: {
                     id: userId
                 }
@@ -32,7 +32,7 @@ class UserRepository {
     
     async getById(userId) {
         try {
-            const result = await user.findByPk(userId, {
+            const result = await User.findByPk(userId, {
                 attributes: ['email', 'id']
             });
             return result;           
@@ -44,7 +44,7 @@ class UserRepository {
 
     async getByEmail(userEmail) {
         try {
-            const response = await user.findOne({
+            const response = await User.findOne({
                 where: {
                     email: userEmail
                 }

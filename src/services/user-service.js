@@ -33,9 +33,7 @@ class UserSerive {
   
     verifyToken(token) {
         try {
-            console.log(token, ">>>>>>", JWT_KEY);
             const response = jwt.verify(token, JWT_KEY);
-            console.log(">>>>>>>>>>>>>>>>>>>", response);
             return response;
         } catch (error) {
             console.log('somwthing went wrong in serice layer');
@@ -79,9 +77,7 @@ class UserSerive {
 
      isAuthenticate(token) {
         try {
-            // console.log(token);
             const response = this.verifyToken(token);
-            console.log(">>>>>>>>>>>>>>>")
             if(!response) {
                 throw{error: 'Invalid token'}
             }

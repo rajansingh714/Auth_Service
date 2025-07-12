@@ -9,7 +9,6 @@ const create = async (req, res) => {
             email: req.body.email,
             password: req.body.password
         });
-
         return res.status(201).json({
             success: true,
             message: 'successfulyy created is a new user',
