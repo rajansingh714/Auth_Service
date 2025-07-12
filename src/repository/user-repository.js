@@ -10,6 +10,7 @@ class UserRepository {
             return result;
 
         } catch (error) {
+            console.log(error);
             console.log('something went wrong in repository layer');
             throw(error);
         }
