@@ -12,6 +12,18 @@ const ValidateUserAuth = async (req, res, next) => {
         next();
 }
 
+const ValidateIsAdminRequest = async(req, res, next) => {
+    if(!req.body.id) {
+        return res.status(400).json({
+            success: false,
+            message: 'user Id is not Given',
+            err: {}
+        });
+    }
+    next();
+}
+
 module.exports = {
     ValidateUserAuth,
+    ValidateIsAdminRequest
 }

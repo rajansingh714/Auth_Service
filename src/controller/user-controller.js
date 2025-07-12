@@ -40,7 +40,7 @@ const signIn = async (req, res) => {
         console.log(error);
         return res.status(500).json({
             success: false,
-            message: 'something went wrong',
+            message: 'SuccessFully not signIn',
             data: {},
             err: error
         }); 
@@ -63,10 +63,31 @@ const isAuthenticated = async (req, res) => {
             console.log(error);
             return res.status(500).json({
                 succcess: false,
-                message: 'something went wrong ',
+                message: 'SuccessFully not Authentic ',
                 data: {},
                 err: error
             });
+        }
+}
+
+const isAdmin = async (req, res) => {
+        try {
+            const response  = await userService.isAdmin(req.body.id);
+            return res.status(200).json({
+                success: true,
+                data: response,
+                message: 'SuccessFully fetched whether user is admin or not',
+                err: {}
+            });
+            
+        } catch (error) {
+           console.log(error);
+            return res.status(500).json({
+                succcess: false,
+                message: 'something went wrong in Controller ',
+                data: {},
+                err: error
+            }); 
         }
 }
 
@@ -74,6 +95,7 @@ const isAuthenticated = async (req, res) => {
 module.exports = {
     create,
     signIn,
-    isAuthenticated
+    isAuthenticated,
+    isAdmin
 }
 

@@ -88,7 +88,17 @@ class UserSerive {
             }
             return user.id;
         } catch (error) {
-            console.log('something went wrong in serviceee layer');
+            console.log('something went wrong in service layer');
+            throw(error);
+        }
+    }
+
+
+    isAdmin(userId) {
+        try {
+            return this.userRepository.isAdmin(userId);
+        } catch (error) {
+            console.log('something went wrong in service layer');
             throw(error);
         }
     }
