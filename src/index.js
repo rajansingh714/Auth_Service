@@ -4,7 +4,7 @@ const bodyparser = require('body-parser');
 const { PORT } = require('./config/serverConfig');
 const ApiRoutes = require('./routes/inedex')
 
-
+const  UserRepository  = require('./repository/user-repository');
 
 
 // router object
@@ -18,6 +18,11 @@ const serverSetup = async () => {
     app.use(bodyparser.json());
 
     app.use('/api', ApiRoutes);
+
+
+    // const repo = new UserRepository();
+    // const result = await repo.getById(1);
+    // console.log(result);
 
 
     app.listen(PORT, () => {
