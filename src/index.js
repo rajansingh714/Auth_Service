@@ -4,10 +4,13 @@ const bodyparser = require('body-parser');
 const { PORT } = require('./config/serverConfig');
 const { JWT_KEY } = require('./config/serverConfig');
 const ApiRoutes = require('./routes/inedex')
+const db = require('./models/index');
+
 
 // const  UserRepository  = require('./repository/user-repository');
 
 const UserService = require('./services/user-service');
+
 
 // router object
 const app = express();
@@ -30,9 +33,12 @@ const serverSetup = async () => {
     // const verify = service.verifyToken(token, JWT_KEY );
     // console.log(verify);
 
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
         console.log(`server is started on ${PORT}`);
     });
+
+    
+
 }
 
  
