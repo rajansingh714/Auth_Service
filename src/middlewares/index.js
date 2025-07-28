@@ -1,6 +1,6 @@
 
-
+console.log(typeof(this.AuthRequestValidator));
 module.exports = {
-    validateUserSignup: require('./auth-reques-validator'),
+    AuthRequestValidator: require('./auth-request-validator'),
 
 }

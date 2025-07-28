@@ -1,8 +1,8 @@
 
-const validateUserSignup = async (req, res, next) => {
+const validateUserSignup = (req, res, next) => {
 
     if(!req.body.email || !req.body.password) {
-        return req.status(400).json({
+        return res.status(400).json({
             success: false,
             data: {},
             message: 'Something went wrong',
